@@ -10,7 +10,9 @@
     <h1>Estoy destinado a ser exitoso</h1>
     <hr>
     @include('_nav')
-
+    <h1>
+        @lang('main.title')
+    </h1>
     <div class="container">
         @yield('content')
     </div>
