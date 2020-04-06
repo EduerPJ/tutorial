@@ -20,3 +20,5 @@ Route::get('/', function () {
 Route::get('/view', function(){
     return view('view');
 });
+
+Route::view('/vue', 'vue');
