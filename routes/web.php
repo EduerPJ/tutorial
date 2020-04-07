@@ -22,3 +22,12 @@ Route::get('/view', function(){
 });
 
 Route::view('/vue', 'vue');
+
+Route::get('/basededatos', function(){
+    try {
+        DB::connection()->getPdo();
+    }catch(\Exception $e){
+        die("No se ha podido conectar a la database: Por favor revise su configuración. 
+        eror: " . $e);
+    }
+});
