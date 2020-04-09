@@ -9,4 +9,14 @@ class Post extends Model
     protected $fillable = [
         'title', 'content', 'user_id',
     ];
+
+        // Definir las relaciones de los modelos
+        public function comments()
+        {
+            return $this->hasMany('App\Models\Comment');
+        }
+
+        public function user() {
+            return $this->belongsTo('App\User');
+        }
 }

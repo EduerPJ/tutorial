@@ -14,6 +14,6 @@ $factory->define(App\Models\Comment::class, function (Faker $faker) {
     return [
         'content' => $faker->text($maxNbChars = 50),
         'user_id' => $faker->numberBetween(1, $count_users),
-        'posts_id' => $faker->numberBetween(1, $count_posts)
+        'post_id' => $faker->numberBetween(1, $count_posts)
     ];
 });

@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use phpDocumentor\Reflection\Types\This;
 
 class User extends Authenticatable
 {
@@ -36,4 +37,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Definir las relaciones de los modelos
+    public function posts()
+    {
+        return $this->hasMany('App\Models\Post', /*'user_id, 'id*/ );
+    }
 }

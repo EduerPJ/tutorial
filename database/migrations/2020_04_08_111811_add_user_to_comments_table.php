@@ -17,8 +17,8 @@ class AddUserToCommentsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
-            $table->unsignedBigInteger('posts_id');
-            $table->foreign('posts_id')->references('id')->on('posts')->onDelete('cascade');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
         });
     }
 
@@ -31,7 +31,7 @@ class AddUserToCommentsTable extends Migration
     {
         Schema::table('comments', function (Blueprint $table) {
             $table->dropForeign(['user_id']);
-            $table->dropForeign(['posts_id']);
+            $table->dropForeign(['post_id']);
         });
     }
 }
