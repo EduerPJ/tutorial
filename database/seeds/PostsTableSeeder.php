@@ -12,7 +12,6 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
-        Post::create(['title' => 'Este es el quinto post', 'content' => 'Contenido del quinto post', 'user_id' => 4]);
-        Post::create(['title' => 'Este es el sexto post', 'content' => 'Contenido del sexto post', 'user_id' => 4]);
+        factory(App\Models\Post::class)->times(10)->create();
     }
 }
