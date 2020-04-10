@@ -1,4 +1,4 @@
 <?php
 return [
-    'title' => 'Título'
+    'title' => 'Bienvenido'
 ];
