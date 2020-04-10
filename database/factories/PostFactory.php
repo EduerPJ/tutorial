@@ -4,9 +4,10 @@
 
 use App\Model;
 use Faker\Generator as Faker;
+use App\Models\Post;
 use App\User;
 
-$factory->define(App\Models\Post::class, function (Faker $faker) {
+$factory->define(Post::class, function (Faker $faker) {
     $count = User::count();
 
     return [
