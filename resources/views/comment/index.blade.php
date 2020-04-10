@@ -4,13 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Show Post</title>
+    <title>Comments</title>
 </head>
 <body>
-    <h1>Estoy destinado a ser exitoso</h1>
-    <hr>
-<h2>
-{{$post}}
-</h2>
+    <h1>Tengo propósitos poderosos que cambiaran mi vida</h1>
+    @foreach ($comments as $comment)
+    <p>{{$comment->content}}</p>
+    @endforeach
 </body>
-</html>
+</html> 

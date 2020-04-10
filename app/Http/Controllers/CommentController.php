@@ -1,12 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
-
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +13,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();        
-        return view('post.index', compact('posts'));
+        $comments = Comment::all();
+        return view('comment.index', compact('comments'));
     }
 
     /**
@@ -26,9 +24,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return 'Espacio para crear un nuevo post';
+        //
     }
-
+    
     /**
      * Store a newly created resource in storage.
      *
@@ -37,52 +35,52 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        return 'Proceso para crear un nuevo post';
+        //
     }
-
+    
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show($post)
+    public function show($comment)
     {
-        $post = Post::find($post);
-        return view('post.show', compact('post'));
+        $comment = Comment::find($comment);
+       return view('comment.show', compact('comment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Comment $comment)
     {
-        return 'Espacio para editar post'; 
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Comment $comment)
     {
-        return 'Espacio para editar un post';
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
+     * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
-        return 'Espacio para borrar un post';
+        //
     }
 }
