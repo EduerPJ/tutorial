@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Comment;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreBlogPost;
 
 class CommentController extends Controller
 {
@@ -24,7 +27,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+        return view('comment.create');
     }
     
     /**
@@ -33,9 +36,16 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBlogPost $request)
     {
-        //
+        $comment = new Comment();
+        $comment->content = $request->input('content');
+        $comment->user_id = $request->input('user_id');
+        $comment->post_id = $request->input('post_id');
+
+        $comment->save();
+
+        return view('comment.store', compact('comment'));
     }
     
     /**

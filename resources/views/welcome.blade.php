@@ -10,16 +10,12 @@
     <h1>Estoy destinado a ser exitoso</h1>
     <hr>
     @include('_nav')
-    <h1>
+    <h1 class="row justify-content-center">
         @lang('main.title')
     </h1>
     <div class="container">
         @yield('content')
     </div>
-
-    @section('sidebar')
-        <h3>Sidebar</h3>
-    @show
 
 </body>
 </html>

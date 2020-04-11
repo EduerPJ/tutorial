@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\UserFormRequest;
 
 class PostController extends Controller
 {
@@ -15,11 +16,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-       /*  $posts = Post::all();        
-        return view('post.index', compact('posts')); */
-
-        // Enviar un json al navegador
-
+        //
 
 
     }
@@ -31,7 +28,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return 'Espacio para crear un nuevo post';
+        return view('post.create');
     }
 
     /**
@@ -40,9 +37,19 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserFormRequest $request)
     {
-        return 'Proceso para crear un nuevo post';
+
+
+        $post = new Post();
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+        $post->user_id = 1;
+
+        $post->save();
+        return $post->id;
+        
+
     }
 
     /**
