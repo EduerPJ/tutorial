@@ -12,3 +12,7 @@ Route::get('/', function () {
 
 Route::resource('posts', 'PostController');
 Route::resource('comments', 'CommentController');
+
+Route::get('/paypal', function(App\Models\Paypal $paypal){
+    return $paypal->doSomething();
+});
