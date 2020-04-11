@@ -18,7 +18,10 @@ class PostController extends Controller
        /*  $posts = Post::all();        
         return view('post.index', compact('posts')); */
 
-        dd($request);
+        // Enviar un json al navegador
+
+
+
     }
 
     /**
