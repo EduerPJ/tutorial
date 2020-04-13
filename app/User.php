@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use phpDocumentor\Reflection\Types\This;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail // TODO: Esto es lo que se debe hacer para realizar una auth
 {
     use Notifiable;
 

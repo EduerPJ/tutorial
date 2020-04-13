@@ -1,30 +1,26 @@
 <?php
 
-use App\Models\Comment;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\DB;
 use phpDocumentor\Reflection\Types\Resource_;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
 
-})->middleware('language');
+});
+Route::resource('posts', 'PostController');
+Route::resource('comments', 'CommentController');
+
 
 Route::resource('posts', 'PostController');
 Route::resource('comments', 'CommentController');
 
-/* 
-Content Servide Providers | Kernel | generando un nuevo provider | config método register | inyectrlo acá
-Route::get('/paypal', function(App\Models\Paypal $paypal){
-    return $paypal->doSomething();
-}); */
+// Pasar el argumento con un valor true
+Auth::routes(['verify' => true]);
 
 
-// Inyectar una clase por medio de un Facade
-// Generar un nuevo provider make:provider nameProvider y confi método register | register en app.php y add alias
-Route::get('/paypal', function(){
-    return Payment::doSomething();
+Route::group(['middleware' => 'verified'], function(){
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::resource('posts', 'PostController');
 });
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
