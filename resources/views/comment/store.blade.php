@@ -1,8 +1,11 @@
-@extends('layouts._main')
+@extends('layouts.app')
 
 @section('content')
-    <h3>Este es su comentario, creado correctamente</h3>
-    <p>
-        {{$comment->content}}
-    </p>
+<div class="container">
+    <div class="card mb-4">
+        <div class="card-body">
+        <p class="card-text">{{$comment->content}}</p>
+        </div>
+    </div>
+</div>
 @endsection

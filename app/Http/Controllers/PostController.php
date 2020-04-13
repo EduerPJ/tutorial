@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index(Request $request)
     {
-        $posts = Post::all();
+        $posts = Post::paginate(6); //TODO: Definir paginate e indicar el número de posts por página
         return view('post.index', compact('posts'));
 
     }
@@ -47,7 +47,7 @@ class PostController extends Controller
         $post->user_id = 1;
 
         $post->save();
-        return $post->id;
+        return view('post.show', compact('post'));
         
 
     }
