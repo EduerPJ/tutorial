@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
@@ -44,10 +43,10 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->user_id = $request->user()->id;
-        
+
         $post->save();
 
-            return view('post.show', compact('post'));
+        return view('post.show', compact('post'));
     }
 
     /**
@@ -57,7 +56,7 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post) // TODO: Para ver un único post
-    {  
+    {
 
         return view('post.show', compact('post'));
     }
@@ -82,6 +81,8 @@ class PostController extends Controller
      */
     public function update(UserFormRequest $request, Post $post)  // TODO: POST actualziado
     {
+        $this->authorize('update', $post);
+
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->user_id = $request->user()->id;
@@ -101,8 +102,11 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $this->authorize('delete', $post); // TODO: Policy
+
         $post->delete();
-        return redirect()->route('posts.index');
+        return redirect()->route('my-posts')
+            ->with('message', 'Post eliminado correctamente');
     }
 
     public function myPosts()

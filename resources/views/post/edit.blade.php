@@ -35,6 +35,7 @@
           </div>
         </div>
         <div class="col-sm-7 text-center">
+          
           <button {{-- disabled="disabled" --}} class="btn btn-primary btn-block" type="submit">Enviar</button>
         </div>
       </div>

@@ -2,6 +2,16 @@
 
 @section('title', 'My Posts')
 @section('content')
+
+@if (Session::has('message')) {{-- TODO: Policy --}}
+<div class="container alert alert-success">
+    {{Session::get('message')}}
+</div>
+
+    
+@endif
+
+
 @foreach ($posts as $post)
 <div class="container">
     <div class="card mb-4">
