@@ -19,7 +19,6 @@ class PostController extends Controller
     {
         $posts = Post::paginate(6); //TODO: Definir paginate e indicar el número de posts por página
         return view('post.index', compact('posts'));
-
     }
 
     /**
@@ -44,19 +43,15 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->user_id = $request->user()->id;
-        
+
         if ($post->save()) {
-            
+
             $message = 'Post creado correctamente';
             return view('post.show', compact('post', 'message'));
-
         } else {
             $message = 'El post no se pudo crear';
             redirect()->route('posts.create', compact('message'));
         }
-        
-        
-
     }
 
     /**
@@ -96,8 +91,8 @@ class PostController extends Controller
         $post->save();
 
         return redirect()
-                ->route('posts.edit', ['post' => $post])
-                ->with('message', 'Post actualizado');
+            ->route('posts.edit', ['post' => $post])
+            ->with('message', 'Post actualizado');
     }
 
 

@@ -30,7 +30,7 @@ class CommentController extends Controller
     {
         return view('comment.create');
     }
-    
+
     /**
      * Store a newly created resource in storage.
      *
@@ -48,7 +48,7 @@ class CommentController extends Controller
 
         return view('comment.store', compact('comment'));
     }
-    
+
     /**
      * Display the specified resource.
      *
