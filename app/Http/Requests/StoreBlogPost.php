@@ -25,8 +25,6 @@ class StoreBlogPost extends FormRequest
     {
         return [
             'content' => 'required|min:5|max:255',
-            'user_id' => 'required|min:1|max:2',
-            'post_id' => 'required|min:1|max:2',
         ];
     }
 

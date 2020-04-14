@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use App\User;
+use App\Models\Comment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -43,15 +44,10 @@ class PostController extends Controller
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->user_id = $request->user()->id;
+        
+        $post->save();
 
-        if ($post->save()) {
-
-            $message = 'Post creado correctamente';
-            return view('post.show', compact('post', 'message'));
-        } else {
-            $message = 'El post no se pudo crear';
-            redirect()->route('posts.create', compact('message'));
-        }
+            return view('post.show', compact('post'));
     }
 
     /**
@@ -61,7 +57,8 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Post $post) // TODO: Para ver un único post
-    {
+    {  
+
         return view('post.show', compact('post'));
     }
 
@@ -87,7 +84,7 @@ class PostController extends Controller
     {
         $post->title = $request->input('title');
         $post->content = $request->input('content');
-
+        $post->user_id = $request->user()->id;
         $post->save();
 
         return redirect()
@@ -104,6 +101,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        return 'Espacio para borrar un post';
+        $post->delete();
+        return redirect()->route('posts.index');
+    }
+
+    public function myPosts()
+    {
+        $posts = Auth::user()->posts;
+        return view('post.my', compact('posts'));
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-
+@section('title', 'Create Post')
 @section('content')
 <h1 class="text-center">Create Post</h1>
 @if ($errors->any())
@@ -18,7 +18,7 @@
         <div class="col-sm-7">
           <div class="form-group">
             <label for="title">Título</label>
-          <input type="text" name="title" id="title" class="form-control" placeholder="Título" value="{{old('title')}}">
+          <input  type="text" name="title" id="title" class="form-control" placeholder="Título" value="{{old('title')}}" autofocus>
           </div>
           <div class="form-group">
             <label for="content">Contenido</label>

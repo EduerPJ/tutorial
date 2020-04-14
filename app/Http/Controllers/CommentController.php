@@ -7,6 +7,8 @@ use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBlogPost;
+use PhpParser\Node\Expr\Cast\Int_;
+use Ramsey\Uuid\Type\Integer;
 
 class CommentController extends Controller
 {
@@ -27,8 +29,9 @@ class CommentController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
-    {
-        return view('comment.create');
+    {   
+        $post_id = intval($request->post);
+        return view('comment.create', compact('post_id'));
     }
 
     /**
@@ -37,16 +40,17 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBlogPost $request, $post)
-    {
+    public function store(StoreBlogPost $request, Post $post)
+    {   
         $comment = new Comment();
         $comment->content = $request->input('content');
         $comment->user_id = $request->user()->id;
-        $comment->post_id = $request->get('post');
+        $comment->post_id = $request->input('post_id');
 
         $comment->save();
+        return view('comment.store', compact('post', 'comment'));
 
-        return view('comment.store', compact('comment'));
+        
     }
 
     /**
