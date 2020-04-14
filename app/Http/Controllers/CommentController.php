@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comment;
+use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreBlogPost;
@@ -25,7 +26,7 @@ class CommentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('comment.create');
     }
@@ -36,12 +37,12 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreBlogPost $request)
+    public function store(StoreBlogPost $request, $post)
     {
         $comment = new Comment();
         $comment->content = $request->input('content');
-        $comment->user_id = $request->input('user_id');
-        $comment->post_id = $request->input('post_id');
+        $comment->user_id = $request->user()->id;
+        $comment->post_id = $request->get('post');
 
         $comment->save();
 
@@ -54,10 +55,9 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show($comment)
+    public function show(Comment $comment)
     {
-        $comment = Comment::find($comment);
-       return view('comment.show', compact('comment'));
+        return view('comment.show', compact('comment'));
     }
 
     /**
@@ -78,7 +78,7 @@ class CommentController extends Controller
      * @param  \App\Models\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Comment $comment)
+    public function update(StoreBlogPost $request, Comment $comment)
     {
         //
     }

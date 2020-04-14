@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
@@ -26,7 +27,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         return view('post.create');
     }
@@ -39,15 +40,21 @@ class PostController extends Controller
      */
     public function store(UserFormRequest $request)
     {
-
-
         $post = new Post();
         $post->title = $request->input('title');
         $post->content = $request->input('content');
-        $post->user_id = 1;
+        $post->user_id = $request->user()->id;
+        
+        if ($post->save()) {
+            
+            $message = 'Post creado correctamente';
+            return view('post.show', compact('post', 'message'));
 
-        $post->save();
-        return view('post.show', compact('post'));
+        } else {
+            $message = 'El post no se pudo crear';
+            redirect()->route('posts.create', compact('message'));
+        }
+        
         
 
     }
@@ -58,9 +65,8 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show($post)
+    public function show(Post $post) // TODO: Para ver un único post
     {
-        $post = Post::find($post);
         return view('post.show', compact('post'));
     }
 
@@ -72,7 +78,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return 'Espacio para editar post'; 
+        return view('post.edit', compact("post"));
     }
 
     /**
@@ -82,10 +88,18 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(UserFormRequest $request, Post $post)  // TODO: POST actualziado
     {
-        return 'Espacio para editar un post';
+        $post->title = $request->input('title');
+        $post->content = $request->input('content');
+
+        $post->save();
+
+        return redirect()
+                ->route('posts.edit', ['post' => $post])
+                ->with('message', 'Post actualizado');
     }
+
 
     /**
      * Remove the specified resource from storage.
