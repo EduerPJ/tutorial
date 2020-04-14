@@ -15,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Post::class => PostPolicy::class, // TODO: Policy
+        Post::class => PostPolicy::class,  // TODO: Policy
     ];
 
     /**
@@ -26,7 +26,13 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
+        $this->deleteAction(); // TODO: Gates
+        
+    }
 
-        //
+    public function deleteAction(){ // TODO: Gates
+        Gate::define('delete-post', function($user, $post) {
+            return $user->id === $post->id;
+        });
     }
 }

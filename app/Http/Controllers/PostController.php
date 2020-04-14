@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Gate;
 class PostController extends Controller
 {
     /**
@@ -102,7 +102,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        $this->authorize('delete', $post); // TODO: Policy
+        // $this->authorize('delete', $post); // TODO: Policy
+        if(Gate::denies('delete-post', $post)){ // TODO Gates
+            return redirect()->back();
+        }
 
         $post->delete();
         return redirect()->route('my-posts')
