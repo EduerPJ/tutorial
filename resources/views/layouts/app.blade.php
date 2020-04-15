@@ -36,7 +36,7 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item active"><a href="{{ route('home') }}" class="nav-link">Home <span class="sr-only"></span> </a></li>
-                    <li class="nav-item"><a href="{{ route('posts.index') }}" >Posts</a></li>
+                    <li class="nav-item"><a href="{{ route('posts.index') }}" class="nav-link">Posts</a></li>
                     <li class="nav-item"><a href="{{ route('my-posts') }}" class="nav-link">Mis post</a></li>
                     <li class="nav-item"><a href="{{ route('posts.create') }}" class="nav-link">Crear Post</a></li>
                     </ul>

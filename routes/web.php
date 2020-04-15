@@ -29,4 +29,10 @@ Route::group(['middleware' => 'verified'], function(){
     Route::get('my-posts', 'PostController@myPosts')->name('my-posts');
 });
 
+use App\Jobs\UserEmailWelcome;
 
+
+Route::get('/mail', function(){
+    UserEmailWelcome::dispatch(App\User::find(1))->delay(now()->addSecond(10));
+    return 'Done!';
+});
