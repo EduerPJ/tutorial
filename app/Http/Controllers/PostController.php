@@ -8,6 +8,11 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Redis; // TODO queue - redis
+
+
+
+
 class PostController extends Controller
 {
     /**
@@ -58,8 +63,17 @@ class PostController extends Controller
     public function show(Post $post) // TODO: Para ver un único post
     {
 
-        return view('post.show', compact('post'));
-    }
+        $counter = 0;
+
+        if(Redis::exists('post:views:' . $post->id)){  // TODO redis
+            Redis::incr('post:views:' .$post->id);
+            $counter = Redis::get('post:views:'.$post->id);
+        }else{
+            Redis::set('post:views:'. $post->id, 0);
+        }
+
+        return view('post.show', compact('post', 'counter'));
+    } 
 
     /**
      * Show the form for editing the specified resource.
