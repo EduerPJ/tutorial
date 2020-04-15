@@ -1,10 +1,14 @@
 <?php
 
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use phpDocumentor\Reflection\Types\Resource_;
 use Illuminate\Support\Facades\Auth;
 
-Route::get('/', function () {
+Route::get('/', function () {     // TODO comando
+    Artisan::call('user:mail',[
+        'id' => 11, '--flag' => 'Flag user'
+    ]);
     return view('welcome');
 
 });
@@ -24,4 +28,5 @@ Route::group(['middleware' => 'verified'], function(){
     Route::resource('posts', 'PostController');
     Route::get('my-posts', 'PostController@myPosts')->name('my-posts');
 });
+
 
