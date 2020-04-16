@@ -42,16 +42,30 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserFormRequest $request)
+    public function store(UserFormRequest $request, Post $post)
     {
+
+        $counter = 0;
+
+        if(Redis::exists('post:views:' . $post->id)){  // TODO redis
+            Redis::incr('post:views:' .$post->id);
+            $counter = Redis::get('post:views:'.$post->id);
+
+        }else{
+            Redis::set('post:views:'. $post->id, 0);
+        }
+
+
         $post = new Post();
         $post->title = $request->input('title');
         $post->content = $request->input('content');
         $post->user_id = $request->user()->id;
+        $post->views = $counter;
+
 
         $post->save();
 
-        return view('post.show', compact('post'));
+        return view('post.show', compact('post', 'counter'));
     }
 
     /**
@@ -66,8 +80,11 @@ class PostController extends Controller
         $counter = 0;
 
         if(Redis::exists('post:views:' . $post->id)){  // TODO redis
+            
             Redis::incr('post:views:' .$post->id);
             $counter = Redis::get('post:views:'.$post->id);
+
+
         }else{
             Redis::set('post:views:'. $post->id, 0);
         }
